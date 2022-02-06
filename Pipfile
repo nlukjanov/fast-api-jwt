@@ -8,7 +8,7 @@ autopep8 = "*"
 
 [packages]
 fastapi = "*"
-unicorn = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.1"
