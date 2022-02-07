@@ -2,7 +2,8 @@ from datetime import datetime
 from http.client import HTTPException
 from uuid import UUID, uuid4
 
-from starlette import Response, status
+from starlette import status
+from starlette.responses import Response
 
 from schemas import CreateTaskSchema, GetTaskSchema, ListTasksSchema, Status
 from server import server

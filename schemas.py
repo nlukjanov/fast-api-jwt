@@ -25,6 +25,7 @@ class Status(Enum):
 class CreateTaskSchema(BaseModel):
     priority: Optional[Priority] = 'low'
     status: Optional[Status] = 'pending'
+    task: str
 
 
 class GetTaskSchema(BaseModel):
