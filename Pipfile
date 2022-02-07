@@ -9,6 +9,9 @@ autopep8 = "*"
 [packages]
 fastapi = "*"
 uvicorn = "*"
+pyyaml = "*"
+pyjwt = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.1"
