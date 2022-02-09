@@ -11,7 +11,7 @@ def generate_jwt():
     payload = {
         'iss': 'https://auth.coffeemesh.io',
         'sub': '456765445678',
-        'aud': 'https://coffeemesh.io/orders',
+        'aud': 'https://127.0.0.1/todo',
         'iat': now,
         'exp': (now + timedelta(hours=24)).timestamp(),
     }
