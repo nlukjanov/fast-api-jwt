@@ -1,5 +1,6 @@
-from subprocess import call
+from pathlib import Path
 
+import yaml
 from jwt import (ExpiredSignatureError, ImmatureSignatureError,
                  InvalidAlgorithmError, InvalidAudienceError, InvalidKeyError,
                  InvalidSignatureError, InvalidTokenError,
@@ -16,10 +17,14 @@ from fastapi import FastAPI
 
 server = FastAPI(debug=True)
 
+oas_doc = yaml.safe_load((Path(__file__).parent / "oas.yaml").read_text())
+
+server.openapi = lambda: oas_doc
+
 
 class AuthorizeRequestMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
-        if request.url.path in ['/docs', 'openapi.json']:
+        if request.url.path in ['/docs', '/openapi.json']:
             return await call_next(request)
         if request.method == 'OPTIONS':
             return await call_next(request)
@@ -55,7 +60,12 @@ class AuthorizeRequestMiddleware(BaseHTTPMiddleware):
 
 
 server.add_middleware(AuthorizeRequestMiddleware)
-server.add_middleware(CORSMiddleware, allow_origins=[
-                      '*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+server.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 import api
