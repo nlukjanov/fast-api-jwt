@@ -29,7 +29,7 @@ class AuthorizeRequestMiddleware(BaseHTTPMiddleware):
         if request.method == 'OPTIONS':
             return await call_next(request)
 
-        bearer_token = request.headers.get("Authrozation")
+        bearer_token = request.headers.get("Authorization")
         if not bearer_token:
             return JSONResponse(
                 status_code=status.HTTP_401_UNAUTHORIZED,
